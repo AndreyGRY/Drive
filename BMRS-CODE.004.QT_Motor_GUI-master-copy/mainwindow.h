@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
@@ -58,6 +58,28 @@ private slots:
 
     void on_plot_graphic_stateChanged(int arg1);
 
+    void on_pushButton_Set_angle_2_clicked();
+
+    void on_spinBox_des_val_2_valueChanged(double arg1);
+
+    void on_spinBox_des_val_2_editingFinished();
+
+ //   void on_SmoothMode_clicked();
+
+    void on_SmoothModeEnabled_clicked();
+
+    void on_SmoothModeDisabled_clicked();
+
+  //  void on_Ki_text_2_textChanged();
+
+    void on_WriteTime_textChanged();
+
+ //   void on_write_Ki_2_clicked();
+
+    void on_SetTime_clicked();
+
+   // void on_Kp_text_textChanged();
+
 private:
     QSerialPortInfo* portInfo;
     uint8_t MEMS_state;// выбранные источники сигнала
@@ -67,6 +89,8 @@ private:
     QChartView *encoderChartView;
     bool plot_enabled = false;              // enable graphics plot
     bool save_to_file_enabled = false;              // enable graphics plot
+    bool SmoothModeEnabled = false;         // enable SmoothMode
+    QTextEdit WriteTime;
 
     QQueue<uint8_t>* serialDataQueue;
 

@@ -17,6 +17,8 @@
 
 #define RT_SAMPLES 1000
 
+// Standard acceleration time, sec
+
 
 
 #endif // DEFINES_H

@@ -1,4 +1,5 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
+#include "windows.h"
 #include "ui_mainwindow.h"
 #include <QSerialPortInfo>
 #include <QDebug>
@@ -7,9 +8,13 @@
 #include <stddef.h>
 #include <math.h>
 #include <QFile>
+#include <ctime>
 
 #define StartBlock()	(code_ptr = dst++, code = 1)
 #define FinishBlock()	(*code_ptr = code)
+#define StdRollTime 30.0
+#define AccellTime 10
+
 
 int last_position = 0;
 int last_speed = 0;
@@ -283,6 +288,7 @@ void MainWindow::on_radioButton_disabled_mode_clicked()
     port_test->write(data_to_send);
     ui->horizontalSlider->setDisabled(true);
     ui->spinBox_des_val->setDisabled(true);
+    ui->spinBox_des_val_2->setDisabled(true);
     ui->sin_button_widget->setDisabled(true);
 }
 
@@ -292,12 +298,15 @@ void MainWindow::on_radioButton_static_mode_clicked()
     last_speed = ui->horizontalSlider->value();
     // ui->horizontalSlider->setEnabled(true);
     ui->spinBox_des_val->setEnabled(true);
+    ui->spinBox_des_val_2->setEnabled(true);
     ui->sin_button_widget->setDisabled(true);
     ui->horizontalSlider->setRange(-max_position*10000,max_position*10000);
     ui->horizontalSlider->setPageStep(ceil(ceil((double)(max_position*10000)/20)));
     ui->horizontalSlider->setValue(last_position);
     ui->horizontalSlider->update();    
     ui->spinBox_des_val->setRange((double)(-max_position),(double)(max_position));
+    ui->spinBox_des_val_2->setRange((double)(-max_position),(double)(max_position));
+
 }
 
 void MainWindow::on_radioButton_sine_mode_clicked()
@@ -306,6 +315,7 @@ void MainWindow::on_radioButton_sine_mode_clicked()
 
     ui->horizontalSlider->setDisabled(true);
     ui->spinBox_des_val->setDisabled(true);
+    ui->spinBox_des_val_2->setDisabled(true);
     ui->sin_button_widget->setEnabled(true);
 }
 
@@ -315,12 +325,14 @@ void MainWindow::on_radioButton_speed_mode_clicked()
     last_position = ui->horizontalSlider->value();
     // ui->horizontalSlider->setEnabled(true);
     ui->spinBox_des_val->setEnabled(true);
+    ui->spinBox_des_val_2->setEnabled(true);
     ui->sin_button_widget->setDisabled(true);
     ui->horizontalSlider->setRange(-max_speed*10000, max_speed*10000);
     ui->horizontalSlider->setPageStep(ceil(ceil((double)(max_speed*10000)/20)));
     ui->horizontalSlider->setValue(last_speed);
     ui->horizontalSlider->update();
     ui->spinBox_des_val->setRange((double)(-max_speed), (double)(max_speed));
+    ui->spinBox_des_val_2->setRange((double)(-max_speed), (double)(max_speed));
 }
 
 void MainWindow::on_pushButton_Set_angle_clicked()
@@ -341,7 +353,129 @@ void MainWindow::on_pushButton_Set_angle_clicked()
         qDebug() << "error";
         break;
     }
+
+    if (MainWindow::SmoothModeEnabled == true)
+    {
+        double CLK_SEC=CLK_TCK;
+        qDebug() << "error";
+
+        double RollTime = StdRollTime;
+        if (state == position_control)
+    {RollTime = StdRollTime;}
+        else
+        {
+            QString StringTime = ui->WriteTime->toPlainText();
+             RollTime  = StringTime.toDouble();
+        clock_t t0 = std::clock();
+        clock_t t1 = std::clock();
+        qDebug() << "t0" << t0;
+        qDebug() << "t1_0" << t1 << endl;
+        qDebug() << "t0 sec" << t0/CLK_SEC;
+        qDebug() << "t1_0 sec" << t1/CLK_SEC << endl;
+        qDebug() << "2*AccellTime+RollTime" << 2*AccellTime+RollTime;
+        double timer=0;
+        t0 = std::clock();
+        int count = 0;
+
+        while (/*(t1-t0)/CLK_SEC*/ timer < 2*AccellTime+RollTime)
+        {
+            char command_code = 'v';
+             while ( timer < AccellTime)
+             {
+                  data = ui->spinBox_des_val->value();
+                  data = 0.1*data*timer;//(t1-t0)/CLK_SEC;
+                  qDebug() << "data_accel" << data;
+                 SendBytesFloat(command_code, data);
+                 ui->horizontalSlider->setValue((int)(data*10000));
+                 clock_t t1 = std::clock();
+                 t1 = std::clock();
+                 qDebug() << "t1" << t1;
+                 qDebug() << "(t1-t0)/CLK_SEC" << (t1-t0)/CLK_SEC;
+                 Sleep(1000);
+                 timer=(t1-t0)/CLK_SEC;
+              }
+
+             switch (state) {
+             case position_control:
+                 command_code = 'p';
+                 break;
+             case speed_control:
+                 command_code = 'v';
+                 break;
+             default:
+                 command_code = 'e';
+                 qDebug() << "error";
+                 break;
+             }
+
+             if (count == 0)
+             {
+             qDebug() << endl << "t1_1" << t1;
+
+             data = ui->spinBox_des_val->value();
+             SendBytesFloat(command_code, data);
+              command_code = 'v';
+              qDebug() << "data_run" << data << endl;
+              t1 = std::clock();
+                }
+
+             t1 = std::clock();
+             count = 1;
+             timer=(t1-t0)/CLK_TCK;
+             qDebug() << "timer" << timer;
+
+              while ( (timer <= 2*AccellTime+RollTime)&&(timer >= 2*AccellTime+RollTime - AccellTime) )
+              {
+                  data = ui->spinBox_des_val->value();
+                  data = 0.1*data*(2*AccellTime+RollTime-timer);
+                 SendBytesFloat(command_code, data);
+                 ui->horizontalSlider->setValue((int)(data*10000));
+                 t1 = std::clock();
+                 qDebug() << "data_stop" << data;
+                 qDebug() << "t1_-1" << t1;
+                 Sleep(1000);
+                 qDebug() << "timer" << timer;
+                 timer=(t1-t0)/CLK_SEC;
+              }
+        }
+         data = 0;
+         command_code = 'v';
+         SendBytesFloat(command_code, data);
+
+         switch (state) {
+         case position_control:
+             command_code = 'p';
+             break;
+         case speed_control:
+             command_code = 'v';
+             break;
+         default:
+             command_code = 'e';
+             qDebug() << "error";
+             break;
+         }
+
+         SendBytesFloat(command_code, data);
+    }
+    }
+
+    else
+    {
+    switch (state) {
+    case position_control:
+        command_code = 'p';
+        break;
+    case speed_control:
+        command_code = 'v';
+        break;
+    default:
+        command_code = 'e';
+        qDebug() << "error";
+        break;
+    }
     SendBytesFloat(command_code, data);
+    qDebug() << "data_norm" << data;
+    }
 }
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
@@ -647,3 +781,56 @@ void MainWindow::on_plot_graphic_stateChanged(int enabled)
         plot_enabled = true;
     }
 }
+
+void MainWindow::on_pushButton_Set_angle_2_clicked()
+{
+    char command_code = 0;
+    float data = ui->spinBox_des_val_2->value();
+    ui->horizontalSlider->setValue((int)(data*10000));      //да да, это делается через signal
+
+    switch (state) {
+    case position_control:
+        command_code = 'p';
+        break;
+    case speed_control:
+        command_code = 'v';
+        break;
+    default:
+        command_code = 'e';
+        qDebug() << "error";
+        break;
+    }
+    SendBytesFloat(command_code, data);
+}
+
+void MainWindow::on_spinBox_des_val_2_valueChanged(double arg1)
+{
+    ui->horizontalSlider->setValue((int)(arg1*10000));
+}
+
+void MainWindow::on_spinBox_des_val_2_editingFinished()
+{
+
+}
+
+void MainWindow::on_SmoothModeEnabled_clicked()
+{
+     MainWindow::SmoothModeEnabled = true;
+}
+
+void MainWindow::on_SmoothModeDisabled_clicked()
+{
+    MainWindow::SmoothModeEnabled = false;
+}
+
+
+void MainWindow::on_WriteTime_textChanged()
+{
+
+}
+
+void MainWindow::on_SetTime_clicked()
+{
+
+}
+

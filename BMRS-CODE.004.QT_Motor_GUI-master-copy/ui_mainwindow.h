@@ -56,21 +56,22 @@ public:
     QPushButton *pushButton_2;
     QSpacerItem *horizontalSpacer_2;
     QGridLayout *gridLayout_2;
-    QSlider *horizontalSlider;
     QHBoxLayout *horizontalLayout_4;
     QDoubleSpinBox *spinBox_des_val;
     QPushButton *pushButton_Set_angle;
     QSpacerItem *horizontalSpacer;
+    QPushButton *pushButton_Set_angle_2;
+    QDoubleSpinBox *spinBox_des_val_2;
     QWidget *sin_button_widget;
     QGridLayout *gridLayout_7;
     QHBoxLayout *horizontalLayout_5;
-    QSpacerItem *horizontalSpacer_5;
     QPushButton *button_sin_025;
     QPushButton *button_sin_05;
     QPushButton *button_sin_1;
     QPushButton *button_sin_2;
     QPushButton *button_sin_3;
     QLabel *label_2;
+    QSlider *horizontalSlider;
     QVBoxLayout *verticalLayout_2;
     QLabel *label;
     QRadioButton *radioButton_disabled_mode;
@@ -79,7 +80,6 @@ public:
     QRadioButton *radioButton_path_mode;
     QRadioButton *radioButton_sine_mode;
     QGridLayout *gridLayout_4;
-    QSpacerItem *horizontalSpacer_3;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
     QLabel *label_3;
@@ -96,6 +96,20 @@ public:
     QSpacerItem *verticalSpacer;
     QLabel *label_6;
     QSpacerItem *verticalSpacer_2;
+    QSpacerItem *horizontalSpacer_3;
+    QGridLayout *gridLayout_8;
+    QLabel *label_10;
+    QSpacerItem *horizontalSpacer_4;
+    QVBoxLayout *verticalLayout_3;
+    QHBoxLayout *horizontalLayout_6;
+    QHBoxLayout *horizontalLayout_7;
+    QLabel *label_8;
+    QTextEdit *WriteTime;
+    QPushButton *SetTime;
+    QPushButton *SmoothModeEnabled;
+    QPushButton *SmoothModeDisabled;
+    QSpacerItem *verticalSpacer_3;
+    QHBoxLayout *horizontalLayout_8;
     QWidget *tab_graph;
     QWidget *layoutWidget;
     QGridLayout *gridLayout;
@@ -141,7 +155,7 @@ public:
         toolBox->setSizePolicy(sizePolicy);
         page = new QWidget();
         page->setObjectName(QString::fromUtf8("page"));
-        page->setGeometry(QRect(0, 0, 169, 85));
+        page->setGeometry(QRect(0, 0, 110, 69));
         gridLayout_49 = new QGridLayout(page);
         gridLayout_49->setSpacing(6);
         gridLayout_49->setContentsMargins(11, 11, 11, 11);
@@ -159,7 +173,7 @@ public:
         toolBox->addItem(page, QString::fromUtf8("Serial Connection"));
         page_2 = new QWidget();
         page_2->setObjectName(QString::fromUtf8("page_2"));
-        page_2->setGeometry(QRect(0, 0, 169, 85));
+        page_2->setGeometry(QRect(0, 0, 151, 69));
         gridLayout_50 = new QGridLayout(page_2);
         gridLayout_50->setSpacing(6);
         gridLayout_50->setContentsMargins(11, 11, 11, 11);
@@ -186,7 +200,7 @@ public:
 
         gridLayout_3->addWidget(pushButton_2, 1, 0, 1, 1);
 
-        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalSpacer_2 = new QSpacerItem(10, 10, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         gridLayout_3->addItem(horizontalSpacer_2, 0, 1, 1, 1);
 
@@ -196,17 +210,6 @@ public:
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setSpacing(6);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        horizontalSlider = new QSlider(tab_2);
-        horizontalSlider->setObjectName(QString::fromUtf8("horizontalSlider"));
-        horizontalSlider->setEnabled(true);
-        horizontalSlider->setMinimum(-360);
-        horizontalSlider->setMaximum(360);
-        horizontalSlider->setPageStep(20);
-        horizontalSlider->setOrientation(Qt::Horizontal);
-        horizontalSlider->setTickPosition(QSlider::TicksBelow);
-
-        gridLayout_2->addWidget(horizontalSlider, 2, 0, 1, 2);
-
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
@@ -227,6 +230,20 @@ public:
 
         horizontalLayout_4->addItem(horizontalSpacer);
 
+        pushButton_Set_angle_2 = new QPushButton(tab_2);
+        pushButton_Set_angle_2->setObjectName(QString::fromUtf8("pushButton_Set_angle_2"));
+        pushButton_Set_angle_2->setLayoutDirection(Qt::LeftToRight);
+
+        horizontalLayout_4->addWidget(pushButton_Set_angle_2);
+
+        spinBox_des_val_2 = new QDoubleSpinBox(tab_2);
+        spinBox_des_val_2->setObjectName(QString::fromUtf8("spinBox_des_val_2"));
+        spinBox_des_val_2->setMinimumSize(QSize(100, 0));
+        spinBox_des_val_2->setDecimals(4);
+        spinBox_des_val_2->setSingleStep(0.100000000000000);
+
+        horizontalLayout_4->addWidget(spinBox_des_val_2);
+
 
         gridLayout_2->addLayout(horizontalLayout_4, 1, 0, 1, 1);
 
@@ -240,10 +257,6 @@ public:
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
-        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_5->addItem(horizontalSpacer_5);
-
         button_sin_025 = new QPushButton(sin_button_widget);
         button_sin_025->setObjectName(QString::fromUtf8("button_sin_025"));
         button_sin_025->setMaximumSize(QSize(100, 16777215));
@@ -284,6 +297,17 @@ public:
         label_2->setFont(font);
 
         gridLayout_2->addWidget(label_2, 0, 0, 1, 1);
+
+        horizontalSlider = new QSlider(tab_2);
+        horizontalSlider->setObjectName(QString::fromUtf8("horizontalSlider"));
+        horizontalSlider->setEnabled(true);
+        horizontalSlider->setMinimum(-360);
+        horizontalSlider->setMaximum(360);
+        horizontalSlider->setPageStep(20);
+        horizontalSlider->setOrientation(Qt::Horizontal);
+        horizontalSlider->setTickPosition(QSlider::TicksBelow);
+
+        gridLayout_2->addWidget(horizontalSlider, 2, 0, 1, 2);
 
 
         gridLayout_5->addLayout(gridLayout_2, 2, 0, 1, 2);
@@ -333,10 +357,6 @@ public:
         gridLayout_4 = new QGridLayout();
         gridLayout_4->setSpacing(6);
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
-        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_4->addItem(horizontalSpacer_3, 1, 1, 1, 1);
-
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
@@ -432,6 +452,82 @@ public:
 
         gridLayout_4->addItem(verticalSpacer_2, 0, 0, 1, 1);
 
+        horizontalSpacer_3 = new QSpacerItem(60, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_4->addItem(horizontalSpacer_3, 0, 1, 1, 1);
+
+        gridLayout_8 = new QGridLayout();
+        gridLayout_8->setSpacing(6);
+        gridLayout_8->setObjectName(QString::fromUtf8("gridLayout_8"));
+        label_10 = new QLabel(tab_2);
+        label_10->setObjectName(QString::fromUtf8("label_10"));
+        label_10->setFont(font1);
+
+        gridLayout_8->addWidget(label_10, 0, 1, 1, 1);
+
+        horizontalSpacer_4 = new QSpacerItem(20, 20, QSizePolicy::Preferred, QSizePolicy::Minimum);
+
+        gridLayout_8->addItem(horizontalSpacer_4, 0, 0, 1, 1);
+
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
+
+        verticalLayout_3->addLayout(horizontalLayout_6);
+
+        horizontalLayout_7 = new QHBoxLayout();
+        horizontalLayout_7->setSpacing(6);
+        horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
+        label_8 = new QLabel(tab_2);
+        label_8->setObjectName(QString::fromUtf8("label_8"));
+
+        horizontalLayout_7->addWidget(label_8);
+
+        WriteTime = new QTextEdit(tab_2);
+        WriteTime->setObjectName(QString::fromUtf8("WriteTime"));
+        sizePolicy1.setHeightForWidth(WriteTime->sizePolicy().hasHeightForWidth());
+        WriteTime->setSizePolicy(sizePolicy1);
+        WriteTime->setMaximumSize(QSize(71, 29));
+
+        horizontalLayout_7->addWidget(WriteTime);
+
+        SetTime = new QPushButton(tab_2);
+        SetTime->setObjectName(QString::fromUtf8("SetTime"));
+
+        horizontalLayout_7->addWidget(SetTime);
+
+
+        verticalLayout_3->addLayout(horizontalLayout_7);
+
+        SmoothModeEnabled = new QPushButton(tab_2);
+        SmoothModeEnabled->setObjectName(QString::fromUtf8("SmoothModeEnabled"));
+
+        verticalLayout_3->addWidget(SmoothModeEnabled);
+
+        SmoothModeDisabled = new QPushButton(tab_2);
+        SmoothModeDisabled->setObjectName(QString::fromUtf8("SmoothModeDisabled"));
+
+        verticalLayout_3->addWidget(SmoothModeDisabled);
+
+        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_3->addItem(verticalSpacer_3);
+
+        horizontalLayout_8 = new QHBoxLayout();
+        horizontalLayout_8->setSpacing(6);
+        horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
+
+        verticalLayout_3->addLayout(horizontalLayout_8);
+
+
+        gridLayout_8->addLayout(verticalLayout_3, 1, 1, 1, 1);
+
+
+        gridLayout_4->addLayout(gridLayout_8, 1, 1, 2, 1);
+
 
         gridLayout_5->addLayout(gridLayout_4, 0, 1, 2, 1);
 
@@ -485,7 +581,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 814, 26));
+        menuBar->setGeometry(QRect(0, 0, 814, 21));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -496,8 +592,8 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(1);
-        toolBox->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(0);
+        toolBox->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -512,6 +608,7 @@ public:
         toolBox->setItemText(toolBox->indexOf(page_2), QCoreApplication::translate("MainWindow", "UDP Connection", nullptr));
         pushButton_2->setText(QCoreApplication::translate("MainWindow", "\320\232\320\260\320\273\320\270\320\261\321\200\320\276\320\262\320\272\320\260", nullptr));
         pushButton_Set_angle->setText(QCoreApplication::translate("MainWindow", "Send", nullptr));
+        pushButton_Set_angle_2->setText(QCoreApplication::translate("MainWindow", "Send", nullptr));
         button_sin_025->setText(QCoreApplication::translate("MainWindow", "0.25 \320\223\321\206", nullptr));
         button_sin_05->setText(QCoreApplication::translate("MainWindow", "0.5 \320\223\321\206", nullptr));
         button_sin_1->setText(QCoreApplication::translate("MainWindow", "1 \320\223\321\206", nullptr));
@@ -528,24 +625,35 @@ public:
         Kp_text->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">0.3</p></body></html>", nullptr));
+"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:7.8pt;\">0.3</span></p></body></html>", nullptr));
         write_Kp->setText(QCoreApplication::translate("MainWindow", "W", nullptr));
         label_4->setText(QCoreApplication::translate("MainWindow", "Ki", nullptr));
         Ki_text->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">0.0002</p></body></html>", nullptr));
+"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:7.8pt;\">0.0002</span></p></body></html>", nullptr));
         write_Ki->setText(QCoreApplication::translate("MainWindow", "W", nullptr));
         label_5->setText(QCoreApplication::translate("MainWindow", "Kd", nullptr));
         Kd_text->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">50</p></body></html>", nullptr));
+"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:7.8pt;\">50</span></p></body></html>", nullptr));
         write_Kd->setText(QCoreApplication::translate("MainWindow", "W", nullptr));
         label_6->setText(QCoreApplication::translate("MainWindow", "\320\237\320\230\320\224 \321\200\320\265\320\263\321\203\320\273\321\217\321\202\320\276\321\200 \320\277\320\276\320\273\320\276\320\266\320\265\320\275\320\270\321\217", nullptr));
+        label_10->setText(QCoreApplication::translate("MainWindow", "\320\237\320\273\320\260\320\262\320\275\321\213\320\271 \320\277\321\203\321\201\320\272/\321\202\320\276\321\200\320\274\320\276\320\267", nullptr));
+        label_8->setText(QCoreApplication::translate("MainWindow", "\320\222\321\200\320\265\320\274\321\217 \321\200\320\260\320\261\320\276\321\202\321\213\n"
+"(\320\267\320\260\320\264\320\260\320\275\320\270\320\265 \321\201\320\272\320\276\321\200\320\276\321\201\321\202\320\270)", nullptr));
+        WriteTime->setHtml(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">3.00</p></body></html>", nullptr));
+        SetTime->setText(QCoreApplication::translate("MainWindow", "W", nullptr));
+        SmoothModeEnabled->setText(QCoreApplication::translate("MainWindow", "\320\222\320\272\320\273", nullptr));
+        SmoothModeDisabled->setText(QCoreApplication::translate("MainWindow", "\320\236\321\202\320\272\320\273", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "\320\243\320\277\321\200\320\260\320\262\320\273\320\265\320\275\320\270\320\265", nullptr));
         plot_graphic->setText(QCoreApplication::translate("MainWindow", "\320\237\320\276\321\201\321\202\321\200\320\276\320\265\320\275\320\270\320\265 \320\263\321\200\320\260\321\204\320\270\320\272\320\260", nullptr));
         pushButtonResetPlot->setText(QCoreApplication::translate("MainWindow", "\320\236\321\207\320\270\321\201\321\202\320\270\321\202\321\214 \320\263\321\200\320\260\321\204\320\270\320\272", nullptr));
